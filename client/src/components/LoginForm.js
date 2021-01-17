@@ -42,7 +42,7 @@ const LoginForm = () => {
       // Auth.login(token);
 
       const { data } = await login({
-        variables: { ...formState }
+        variables: { ...userFormData }
       });
     
       Auth.login(data.login.token);

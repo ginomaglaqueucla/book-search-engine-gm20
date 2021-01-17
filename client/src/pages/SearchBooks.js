@@ -6,7 +6,7 @@ import { saveBook, searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 import { useMutation } from '@apollo/react-hooks';
-import { SAVE_BOOK } from '../utils/mutation';
+import { SAVE_BOOK } from '../utils/mutations';
 
 
 const SearchBooks = () => {

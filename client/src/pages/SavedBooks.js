@@ -7,7 +7,7 @@ import { removeBookId } from '../utils/localStorage';
 
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { GET_ME } from '../utils/queries';
-import { REMOVE_BOOK } from '../utils/mutation';
+import { REMOVE_BOOK } from '../utils/mutations';
 
 
 
@@ -15,7 +15,7 @@ const SavedBooks = () => {
   // const [userData, setUserData] = useState({});
 
   // useQuery insteaed of useState
-  const {loading, data: userData} = useQuery(GET_ME);
+  const userData = useQuery(GET_ME);
 
   const [removeBook, {error}] = useMutation(REMOVE_BOOK);
 
@@ -69,7 +69,7 @@ const SavedBooks = () => {
         variables: { bookId: bookIdDel }  
       });
       // upon success, remove book's id from localStorage
-      removeBookId(bookId);
+      removeBookId(bookIdDel);
     } catch (err) {
       console.error(err);
     }
