@@ -15,12 +15,17 @@ const SavedBooks = () => {
   // const [userData, setUserData] = useState({});
 
   // useQuery insteaed of useState
-  const userData = useQuery(GET_ME);
+  const {loading, data} = useQuery(GET_ME);
+
+  console.log(`thisi the daya ${data}`);
+
+  const userData = data?.me || {}
 
   const [removeBook, {error}] = useMutation(REMOVE_BOOK);
 
   // use this to determine if `useEffect()` hook needs to run again
   const userDataLength = Object.keys(userData).length;
+  const userDataTest = Object.keys(userData);
 
   // useEffect(() => {
   //   const getUserData = async () => {
@@ -46,6 +51,10 @@ const SavedBooks = () => {
 
   //   getUserData();
   // }, [userDataLength]);
+
+  console.log(userData);
+  // console.log(userDataTest);
+  // console.log(userDataTest.data);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookIdDel) => {
@@ -76,9 +85,14 @@ const SavedBooks = () => {
   };
 
   // if data isn't here yet, say so
-  if (!userDataLength) {
-    return <h2>LOADING...</h2>;
+  // if (!userDataLength) {
+  //   return <h2>LOADING...</h2>;
+  // }
+
+  if(loading) {
+    return <h2>Loading...</h2>
   }
+
 
   return (
     <>
@@ -89,12 +103,12 @@ const SavedBooks = () => {
       </Jumbotron>
       <Container>
         <h2>
-          {userData.savedBooks.length
+          {userData.savedBooks?.length
             ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <CardColumns>
-          {userData.savedBooks.map((book) => {
+          {userData.savedBooks?.map((book) => {
             return (
               <Card key={book.bookId} border='dark'>
                 {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}

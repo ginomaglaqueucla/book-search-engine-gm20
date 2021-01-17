@@ -7,10 +7,11 @@ const resolvers = {
         me: async (parent, args, context) => {
             if (context.user) {
               const userData = await User.findOne({ _id: context.user._id })
-                .select('-__v -password')
-                .populate('bookCount')
-                .populate('savedBooks');
+                .select('-__v -password');
+                // .populate('bookCount')
+                // .populate('savedBooks');
           
+                console.log(`this ist:${userData}`);
               return userData;
             }
             throw new AuthenticationError('Not logged in');
