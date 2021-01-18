@@ -8,10 +8,6 @@ const resolvers = {
             if (context.user) {
               const userData = await User.findOne({ _id: context.user._id })
                 .select('-__v -password');
-                // .populate('bookCount')
-                // .populate('savedBooks');
-          
-                console.log(`this ist:${userData}`);
               return userData;
             }
             throw new AuthenticationError('Not logged in');
@@ -48,7 +44,6 @@ const resolvers = {
                     {$push: {savedBooks: args}},
                     {new: true}
                 );
-                console.log(`this is current:${currentUser}`);
                 return currentUser;
             }
         },
@@ -59,7 +54,6 @@ const resolvers = {
                     {$pull: {savedBooks: {bookId}}},
                     {new: true}
                 );
-                console.log(`this is removed:${currentUser}`);
                 return currentUser;
             }
         },
